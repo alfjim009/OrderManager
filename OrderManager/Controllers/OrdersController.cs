@@ -10,14 +10,22 @@ public class OrdersController : ControllerBase
   public OrdersController(ILogger<OrdersController> logger, IOrderService orderService)
   {
     _logger = logger;
-    _orderService =
-      _orderService = orderService;
+    _orderService = orderService;
+  }
+
+  [HttpGet]
+  [ProducesResponseType(200, Type = typeof(IEnumerable<OrderViewModel>))]
+  [ProducesResponseType(404)]
+  public async Task<ActionResult<IEnumerable<OrderViewModel>>> GetAllOrdersAsync()
+  {
+    var orders = await _orderService.GetAllOrdersAsync();
+    return Ok(orders);
   }
 
   [HttpPost]
   [ProducesResponseType(200, Type = typeof(OrderViewModel))]
   [ProducesResponseType(404)]
-  public async Task<ActionResult<OrderViewModel>> CreateOrder([FromBody] OrderRequest orderRequest)
+  public async Task<ActionResult<OrderViewModel>> CreateOrderAsync([FromBody] OrderRequest orderRequest)
   {
     var order = await _orderService.CreateOrderAsync(orderRequest);
     if (order.IsCompleted == false)

@@ -13,4 +13,9 @@ public class OrderService : IOrderService
   {
     return _orderRepository.CreateOrderAsync(orderRequest);
   }
+
+  public Task<IEnumerable<OrderViewModel>> GetAllOrdersAsync()
+  {
+    return _orderRepository.GetAllOrdersAsync();
+  }
 }

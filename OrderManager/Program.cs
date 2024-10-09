@@ -11,6 +11,12 @@ namespace OrderManager
       builder.Services.AddScoped<IOrderRepository, OrderRepository>();
       builder.Services.AddScoped<IOrderService, OrderService>();
 
+      builder.Services.AddScoped<IClientRepository, ClientRepository>();
+      builder.Services.AddScoped<IClientService, ClientService>();
+
+      builder.Services.AddScoped<IProductRepository, ProductRepository>();
+      builder.Services.AddScoped<IProductService, ProductService>();
+
       builder.Services.AddDbContext<OrderManagerDbContext>(
         options => options
           .UseSqlServer(configuration.GetConnectionString("DbContext") ?? "")

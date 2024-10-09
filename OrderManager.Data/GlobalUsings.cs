@@ -1,3 +1,4 @@
 ﻿global using OrderManager.Common.Models;
 global using OrderManager.Common.ViewModels;
 global using OrderManager.Common.ViewModels.Request;
+global using Microsoft.EntityFrameworkCore;

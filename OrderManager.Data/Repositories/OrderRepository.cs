@@ -82,4 +82,23 @@ public class OrderRepository : IOrderRepository
       throw;
     }
   }
+
+  public async Task<IEnumerable<OrderViewModel>> GetAllOrdersAsync()
+  {
+    var result = await _dbContext.Orders
+      .Include(c=> c.OrdersDetails)
+      .Select(r => new OrderViewModel
+      {
+        Date = r.Date,
+        ClientId = r.ClientId,
+        OrderDetails = r.OrdersDetails.Select(o => new OrderDetailViewModel
+        {
+          ProductId = o.ProductId,
+          Amount = o.Amount,
+          SubTotal = o.Subtotal
+        })
+      }).ToListAsync();
+
+    return result;
+  }
 }
